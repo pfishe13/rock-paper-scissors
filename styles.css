@@ -9,7 +9,48 @@ body {
   text-align: center;
 }
 
+h1,
+h2,
+h3 {
+  font-weight: 200;
+}
+
 h1 {
   font-size: 70px;
-  font-weight: 200;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.scores {
+  margin: 15px;
+}
+
+/* CSS */
+.button {
+  font-size: 20px;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  padding: 8px 15px;
+  margin: 5px;
+  box-shadow: 5px 5px 29px -5px rgba(0, 0, 0, 0.75);
+}
+
+#rock-button {
+  background-color: #00916e;
+}
+
+#paper-button {
+  background-color: #ffcf00;
+}
+
+#scissors-button {
+  background-color: #fa003f;
 }
