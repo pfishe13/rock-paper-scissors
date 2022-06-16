@@ -8,44 +8,79 @@ function computerPlay() {
     return "Scissors";
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.substr(1).toLowerCase();
+function playRound(e) {
+    if(computerScore === 5 || userScore === 5){
+        resetScores();
+    }
+    let playerSelection = "Rock";
+    if (e.target.getAttribute('id')==="rock-button") {
+        playerSelection = "Rock";
+    }
+    if (e.target.getAttribute('id')==="paper-button") {
+        playerSelection = "Paper";
+    }
+    if (e.target.getAttribute('id')==="scissors-button") {
+        playerSelection = "Scissors";
+    }
+
+
+    let computerSelection = computerPlay();
     console.log(playerSelection, computerSelection);
-    if (playerSelection === computerSelection) return "Tie";
+    // if (playerSelection === computerSelection) return "Tie";
     if (playerSelection === "Rock" && computerSelection === "Paper") {
         computerScore++;
-        return "You Lose! Paper beats Rock";
     }
     if (playerSelection === "Rock" && computerSelection === "Scissors") {
         userScore++;
-        return "You Win! Rock beats Scissors";
     }
     if (playerSelection === "Paper" && computerSelection === "Rock") {
         userScore++;
-        return "You Win! Paper beats Rock";
     }
     if (playerSelection === "Paper" && computerSelection === "Scissors") {
         computerScore++;
-        return "You Lose! Scissors beats Paper";
     }
     if (playerSelection === "Scissors" && computerSelection === "Rock") {
         computerScore++;
-        return "You Lose! Rock beats Scissors";
     }
     if (playerSelection === "Scissors" && computerSelection === "Paper") {
         userScore++;
-        return "You Win! Scissors beats Paper";
+    }
+
+    updateScores();
+
+    if(computerScore === 5 || userScore === 5){
+        endGame();
+    }
+
+    // console.log("User Score: ", userScore);
+    // console.log("Computer Score: ", computerScore);
+}
+
+
+function updateScores() {
+    let userScoreLabel = document.querySelector('.user-score');
+    userScoreLabel.textContent = `User Score: ${userScore}`;
+    let computerScoreLabel = document.querySelector('.computer-score');
+    computerScoreLabel.textContent = `Computer Score: ${computerScore}`;
+}
+
+function resetScores() {
+    computerScore = 0;
+    userScore = 0;
+    const endGameLabel = document.querySelector("h3");
+    endGameLabel.textContent = "First to 5 wins!";
+}
+
+function endGame() { 
+    const endGameLabel = document.querySelector("h3");
+    if (userScore < computerScore) {
+        endGameLabel.textContent = "Sorry, You Lost :(";
+    } else {
+        endGameLabel.textContent = "Good Job, You Won!";
     }
 }
 
-function game() {
-    for(let i = 0; i < 5; i++) {
-        const userInput = window.prompt("Your Move:", "Rock");
-        console.log(`Game ${i+1}`);
-        playRound(userInput, computerPlay());
-    }
-    console.log("Computer Score: ", computerScore);
-    console.log("User Score: ", userScore);
-}
 
-game();
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach(button => button.addEventListener('click', playRound));
